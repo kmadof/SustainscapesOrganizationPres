@@ -6,8 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
-install.packages("pacman")
-pacman::p_load(sf, ggplot2, dplyr, readr, leaflet, dygraphs, xts, lubridate, geojsonio, stringr, raster, rworldxtra)
+pacman::p_load(sf, ggplot2, dplyr, readr, lubridate, raster, rworldxtra)
 ```
 
 # Test with earthquakes:
