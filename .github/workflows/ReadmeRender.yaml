@@ -19,6 +19,13 @@ jobs:
         run: Rscript -e 'install.packages("rmarkdown")'
       - name: Install pacman
         run: Rscript -e 'install.packages("pacman")'
+      - name: "[Stage] [Linux] Install required system libs"
+        if: runner.os == 'Linux'
+        run: apt-get -y update && apt-get install -y  libudunits2-dev libgdal-dev libgeos-dev libproj-dev
+      - name: Install rgdal
+        run: Rscript -e 'install.packages("rgdal")'
+      - name: Install sf
+        run: Rscript -e 'install.packages("sf")'
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
       - name: Commit results

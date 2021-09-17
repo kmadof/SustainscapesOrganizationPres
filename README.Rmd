@@ -6,7 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
-pacman::p_load(sf, ggplot2, dplyr, readr, lubridate, raster, rworldxtra)
+pacman::p_load(sf, rgdal, ggplot2, dplyr, readr, lubridate, raster, rworldxtra)
 ```
 
 # Test with earthquakes:
@@ -25,7 +25,7 @@ EU <- countriesHigh %>%
 
 Earthquakes <- read_csv("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
 Earthquakes$time <- lubridate::with_tz(Earthquakes$time, tz = "Europe/Amsterdam")
-Earthquakes <- Earthquakes %>% st_as_sf(coords = c("latitude", "longitude"), crs = "+proj=longlat +datum=WGS84 +no_defs") %>% st_crop(e)
+Earthquakes <- Earthquakes %>% st_as_sf(coords = c("latitude", "longitude"), crs = "+proj=longlat +datum=WGS84 +no_defs") %>% sf::st_crop(e)
 
 ggplot() + geom_sf(data = EU) + geom_sf(data = Earthquakes, aes(size = mag, color = mag)) + theme_bw() + scale_color_viridis_b()
 Last <- Earthquakes %>% dplyr::filter(time == max(time))
