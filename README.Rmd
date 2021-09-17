@@ -1,0 +1,36 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning=FALSE)
+pacman::p_load(sf, ggplot2, dplyr, readr, leaflet, dygraphs, xts, lubridate, geojsonio, stringr, raster, rworldxtra)
+```
+
+# Test with earthquakes:
+
+How to work with github actions
+
+```{r, echo=FALSE, warning=FALSE, cache=FALSE}
+data("countriesHigh")
+
+e <- new("Extent", xmin = -30.2612922827628, xmax = 44.4804537168321, 
+    ymin = 30, ymax = 82.7048070057387)
+EU <- countriesHigh %>% 
+    st_as_sf() %>% 
+  st_make_valid() %>% 
+  st_crop(e)
+
+Earthquakes <- read_csv("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.csv")
+Earthquakes$time <- lubridate::with_tz(Earthquakes$time, tz = "Europe/Amsterdam")
+Earthquakes <- Earthquakes %>% st_as_sf(coords = c("latitude", "longitude"), crs = "+proj=longlat +datum=WGS84 +no_defs") %>% st_crop(e)
+
+ggplot() + geom_sf(data = EU) + geom_sf(data = Earthquakes, aes(size = mag, color = mag)) + theme_bw() + scale_color_viridis_b()
+Last <- Earthquakes %>% dplyr::filter(time == max(time))
+Max <- Earthquakes %>% dplyr::filter(mag == max(mag))
+```
+The last tremor or earthquake happened `r Last$place`, and had a magnitude of `r Last$mag`. The most intense tremor or earthquake in the last month happened  `r Max$place` and had a magnitude of `r Max$mag`, this was updated at `r Sys.time()`
+
+
