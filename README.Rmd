@@ -11,9 +11,13 @@ pacman::p_load(sf, rgeos, rgdal, ggplot2, dplyr, readr, lubridate, raster, rworl
 
 # Test with earthquakes:
 
-How to work with github actions
+This repo is a test on how to update with github actions
 
 ```{r, echo=FALSE, warning=FALSE, cache=FALSE}
+
+dir.create("man")
+dir.create("man/figures")
+
 data("countriesHigh")
 
 e <- new("Extent", xmin = -30.2612922827628, xmax = 44.4804537168321, 
