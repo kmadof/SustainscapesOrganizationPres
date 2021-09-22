@@ -20,7 +20,6 @@ jobs:
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd", output_format = "md_document")'
       - name: Commit results
-        ena
         run: |
           git add README.md man/figures/README-*
           git commit README.md -am 'Re-build README.md' || echo "No changes to commit"
