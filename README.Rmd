@@ -35,4 +35,4 @@ ggplot() + geom_sf(data = EU) + geom_sf(data = Earthquakes, aes(size = mag, colo
 Last <- Earthquakes %>% dplyr::filter(time == max(time))
 Max <- Earthquakes %>% dplyr::filter(mag == max(mag))
 ```
-The last tremor or earthquake happened `r Last$place`, and had a magnitude of `r Last$mag`. The most intense tremor or earthquake in the last month happened  `r Max$place` and had a magnitude of `r Max$mag`, this was updated at `r Sys.time()`, just to help
+The last tremor or earthquake happened `r Last$place`, and had a magnitude of `r Last$mag`. The most intense tremor or earthquake in the last month happened  `r Max$place` and had a magnitude of `r Max$mag`, this was updated at `r Sys.time()`, just to helpp
